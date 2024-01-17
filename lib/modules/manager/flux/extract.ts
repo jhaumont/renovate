@@ -176,6 +176,13 @@ function resolveResourceManifest(
           datasource: HelmDatasource.id,
         };
 
+        // You will always have a skipReason for a GitRepository as the version is never specified in the HR.
+        // The version is always specified in the GitRepository itself. So we don't consider a HR with a GitRepository
+        // as a dependency.
+        if (resource.spec.chart.spec.sourceRef?.kind === 'GitRepository') {
+            break;
+        } 
+
         const matchingRepositories = helmRepositories.filter(
           (rep) =>
             rep.kind === resource.spec.chart.spec.sourceRef?.kind &&
