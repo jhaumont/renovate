@@ -180,8 +180,8 @@ function resolveResourceManifest(
         // The version is always specified in the GitRepository itself. So we don't consider a HR with a GitRepository
         // as a dependency.
         if (resource.spec.chart.spec.sourceRef?.kind === 'GitRepository') {
-            break;
-        } 
+          break;
+        }
 
         const matchingRepositories = helmRepositories.filter(
           (rep) =>
